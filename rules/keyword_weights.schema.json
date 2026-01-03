@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://briefingbuddy.local/schemas/keyword_weights.schema.json",
+  "title": "Keyword-based Scoring Rules",
+  "type": "object",
+  "required": [
+    "version",
+    "scoring"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "scoring": {
+      "type": "object",
+      "required": [
+        "groups"
+      ],
+      "properties": {
+        "groups": {
+          "type": "object",
+          "description": "Per-group scoring rules used when Q-code mapping is missing/ambiguous.",
+          "additionalProperties": {
+            "type": "object",
+            "required": [
+              "keywords"
+            ],
+            "properties": {
+              "keywords": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "pattern",
+                    "weight"
+                  ],
+                  "properties": {
+                    "pattern": {
+                      "type": "string",
+                      "description": "Case-insensitive regex or plain substring, depending on engine."
+                    },
+                    "weight": {
+                      "type": "number",
+                      "description": "Positive or negative weight."
+                    },
+                    "notes": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "baseWeight": {
+                "type": "number",
+                "default": 0
+              },
+              "tieBreakerPriority": {
+                "type": "integer",
+                "description": "Higher wins when scores tie."
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

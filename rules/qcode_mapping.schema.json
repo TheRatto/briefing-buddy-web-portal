@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://briefingbuddy.local/schemas/qcode_mapping.schema.json",
+  "title": "Q-code to NotamGroup Mapping",
+  "type": "object",
+  "required": [
+    "version",
+    "subjectCodeToGroup"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "subjectCodeToGroup": {
+      "type": "object",
+      "description": "Maps ICAO Q-code subject codes (e.g. 'MR', 'OB', etc.) to NotamGroup values.",
+      "additionalProperties": {
+        "type": "string",
+        "enum": [
+          "runways",
+          "taxiways",
+          "instrumentProcedures",
+          "airportServices",
+          "lighting",
+          "hazards",
+          "admin",
+          "other",
+          "firAirspaceRestrictions",
+          "firAtcNavigation",
+          "firObstaclesCharts",
+          "firInfrastructure",
+          "firDroneOperations",
+          "firAdministrative"
+        ]
+      }
+    }
+  },
+  "additionalProperties": false
+}

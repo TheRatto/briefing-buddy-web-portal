@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://briefingbuddy.local/schemas/time_window.schema.json",
+  "title": "Time Window & Visibility Rules",
+  "type": "object",
+  "required": [
+    "version",
+    "windowOptionsHours",
+    "inclusionRule",
+    "visibilityStates",
+    "perm"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "windowOptionsHours": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "enum": [
+          6,
+          12,
+          24
+        ]
+      },
+      "uniqueItems": true
+    },
+    "includeAllOption": {
+      "type": "boolean",
+      "default": true
+    },
+    "inclusionRule": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "interval_overlap"
+          ]
+        },
+        "definition": {
+          "type": "string",
+          "description": "Human-readable statement of the inclusion rule."
+        }
+      },
+      "additionalProperties": false
+    },
+    "visibilityStates": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "active_now",
+          "future_in_window",
+          "future_outside_window",
+          "expired",
+          "perm_active",
+          "perm_future"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "expired": {
+      "type": "object",
+      "properties": {
+        "defaultHidden": {
+          "type": "boolean",
+          "default": true
+        },
+        "toggleName": {
+          "type": "string",
+          "default": "Include expired"
+        }
+      },
+      "additionalProperties": false
+    },
+    "perm": {
+      "type": "object",
+      "required": [
+        "tokens",
+        "sentinelYears"
+      ],
+      "properties": {
+        "tokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "PERM",
+            "PERMANENT"
+          ]
+        },
+        "sentinelYears": {
+          "type": "integer",
+          "default": 10
+        },
+        "showRule": {
+          "type": "string",
+          "description": "Natural language description of PERM visibility (commenced or commences within window)."
+        }
+      },
+      "additionalProperties": false
+    },
+    "aiHeadsUp": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "description": {
+          "type": "string",
+          "description": "Guidance for selecting key NOTAMs just outside window."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

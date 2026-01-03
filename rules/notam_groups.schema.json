@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://briefingbuddy.local/schemas/notam_groups.schema.json",
+  "title": "BriefingBuddy NOTAM Groups",
+  "type": "object",
+  "required": [
+    "version",
+    "groups"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Semantic version of the ruleset, e.g. 1.0.0"
+    },
+    "groups": {
+      "type": "object",
+      "required": [
+        "airport",
+        "fir"
+      ],
+      "properties": {
+        "airport": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "runways",
+              "taxiways",
+              "instrumentProcedures",
+              "airportServices",
+              "lighting",
+              "hazards",
+              "admin",
+              "other"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "fir": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "firAirspaceRestrictions",
+              "firAtcNavigation",
+              "firObstaclesCharts",
+              "firInfrastructure",
+              "firDroneOperations",
+              "firAdministrative"
+            ]
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
